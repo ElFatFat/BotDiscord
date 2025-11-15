@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json bun.lockb* ./
 RUN bun install --production
 
-COPY src ./src
+COPY . .
 
 CMD ["bun", "run", "clear-global-commands.js"]
 CMD ["bun", "run", "deploy-commands.js"]
