@@ -28,7 +28,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/botdiscord:latest
+            ghcr.io/elfatfat/botdiscord:latest
 
       - name: Trigger deployment on home server
         run: curl -X POST http://90.25.156.174:9000/hooks/deploy-discord-bot
