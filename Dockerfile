@@ -9,4 +9,4 @@ COPY . .
 
 CMD ["bun", "run", "clear-global-commands.js"]
 CMD ["bun", "run", "deploy-commands.js"]
-CMD ["bun", "run", "src/bot.js"]
+CMD ["bun", "run", "index.ts"]
