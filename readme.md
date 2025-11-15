@@ -1,91 +1,56 @@
-# Discord Bot — README
+# Discord Bot
 
-Short, clear readme for a Discord bot project.
+A simple Discord bot with basic slash commands.
 
-## Project
-Simple Discord bot that responds to commands and events.
+## Commands
 
-## Features
-- Command handling
-- Event handling
-- Environment-based config
-- Logging and basic error handling
+- `/ping` - Check bot latency
+- `/user` - Get information about yourself
+- `/server` - Get information about the server
+- `/help` - Show all available commands
 
-## Prerequisites
-- Node.js 18+ or Python 3.10+
-- A Discord application and bot token (Developer Portal)
-- Optional: Docker
+## Setup
 
-## Quick setup (Node.js / discord.js)
-1. Clone repo:
-    ```bash
-    git clone <repo-url>
-    cd <repo-dir>
-    ```
-2. Install:
-    ```bash
-    npm install
-    ```
-3. Create `.env`:
-    ```env
-    DISCORD_TOKEN=your-bot-token
-    GUILD_ID=your-test-guild-id    # optional
-    PREFIX=!
-    ```
-4. Start:
-    ```bash
-    npm start
-    ```
-5. Common script (package.json):
-    ```json
-    "scripts": {
-      "start": "node ./src/index.js",
-      "dev": "nodemon ./src/index.js"
-    }
-    ```
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Quick setup (Python / discord.py)
-1. Create venv and install:
-    ```bash
-    python -m venv .venv
-    source .venv/bin/activate   # Windows: .venv\Scripts\activate
-    pip install -r requirements.txt
-    ```
-2. `.env` like above and run:
-    ```bash
-    python bot.py
-    ```
+2. Create a `.env` file from the example:
+   ```bash
+   cp .env.example .env
+   ```
 
-## Configuration
-- Add bot token in environment variable `DISCORD_TOKEN`.
-- Enable required intents in the Developer Portal and in your client code (e.g., MESSAGE_CONTENT, GUILDS, GUILD_MESSAGES).
-- Use a config file or environment variables for prefixes and IDs.
+3. Fill in your Discord bot credentials in `.env`:
+   - `DISCORD_TOKEN` - Your bot token from [Discord Developer Portal](https://discord.com/developers/applications)
+   - `CLIENT_ID` - Your application's client ID
 
-## Commands & Usage
-- Prefix-based commands (e.g., `!help`, `!ping`).
-- Slash commands: register on startup or via deployment script.
+4. Deploy commands globally (takes ~1 hour to propagate):
+   ```bash
+   node deploy-commands.js
+   ```
 
-Example ping handler (conceptual):
-```js
-// responds to !ping
-if (message.content === `${PREFIX}ping`) {
-  message.reply('Pong!');
-}
+5. Start the bot:
+   ```bash
+   node index.ts
+   ```
+
+## Project Structure
+
+```
+├── commands/
+│   └── utility/         # Bot commands
+│       ├── ping.js
+│       ├── user.js
+│       ├── server.js
+│       └── help.js
+├── deploy-commands.js   # Deploy slash commands globally
+├── index.ts             # Bot entry point
+└── .env                 # Environment variables (create from .env.example)
 ```
 
-## Deployment
-- Use process managers (PM2) or Docker.
-- Keep tokens secret. Use environment secrets on CI/CD.
-
-## Contributing
-- Open issues for bugs or feature requests.
-- Follow existing code style. Add tests for new features.
-
-## License
-Specify a license (e.g., MIT) in LICENSE file.
-
 ## Troubleshooting
-- Bot offline: check token, intents, and gateway errors in logs.
-- Missing permissions: invite bot with appropriate scopes and permissions.
 
-For more advanced setup add README sections for testing, CI, and command registration as needed.
+- **Bot offline**: Check your token and ensure the bot is invited to your server
+- **Commands not showing**: Global commands take up to 1 hour to appear. For instant testing during development, you can modify `deploy-commands.js` to use guild-specific commands instead
+- **Missing permissions**: Ensure the bot has proper permissions when inviting it to your server
